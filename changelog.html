@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>(function(){try{var t=localStorage.getItem('nex-theme');if(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){var d=document.documentElement;d.classList.add('theme-dark');d.style.backgroundColor='#0b1220';d.style.colorScheme='dark';}}catch(e){}})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更新日志 - Nexserver</title>
+    <meta name="description" content="Nexserver服务器更新日志，自动同步自官方 Wiki，仅显示最近15条。">
+    <link rel="stylesheet" href="css/style.css?v=20260964">
+    <script src="js/setting.js"></script>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+ <script src="js/tailwind.js?v=20260937"></script>
+ <link rel="stylesheet" href="css/fontawesome.min.css?v=20260913">
+</head>
+<body class="min-h-screen" data-page="changelog">
+    <!--#include virtual="/partials/nav.html" -->
+
+    <main class="pt-32 pb-20">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12">
+                <span class="section-eyebrow">Changelog</span>
+                <h1 class="section-title"><span data-i18n="changelog.title">更新日志</span></h1>
+                <p class="section-subtitle"><span data-i18n="changelog.auto">
+                    <i class="fas fa-sync-alt mr-1.5 text-blue-400"></i>数据自动同步自官方 Wiki · 最后更新 <span id="cl-update-time" class="text-blue-500 font-medium">--</span>
+                </span></p>
+                <button id="cl-refresh" class="cl-refresh-btn" onclick="window.loadChangelog && loadChangelog(true)"><i class="fas fa-rotate-right mr-1"></i>手动刷新</button>
+            </div>
+
+            <div class="glass-card p-6 sm:p-8" id="changelog-content">
+                <div class="text-center py-12">
+                    <div class="cl-loader mx-auto mb-4">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm"><i class="fas fa-sync-alt mr-1.5"></i>正在同步 Wiki 更新日志…</p>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-400 text-xs mt-6">
+                本页面内容由官方 Wiki 自动同步，如显示异常请<a href="https://github.com/Nexservermc/Nexserver/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97" target="_blank" class="text-blue-500 hover:underline">前往 Wiki 查看</a>
+            </p>
+        </div>
+    </main>
+
+    <!--#include virtual="/partials/footer.html" -->
+    <script src="js/marked.min.js?v=20260913"></script>
+ <script src="js/script.js?v=20260937"></script>
+    <script>
+    // ============更新日志：自动从 GitHub Wiki 拉取，仅显示最近 15 条 ============
+    window.loadChangelog = function (fresh) {
+        var WIKI_URL = 'https://raw.githubusercontent.com/wiki/Nexservermc/Nexserver/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97.md';
+        var MAX_ITEMS = 15;
+        var box = document.getElementById('changelog-content');
+        var timeEl = document.getElementById('cl-update-time');
+        if (!box) return;
+
+        var render = function () {
+            box.innerHTML = '<div class="text-center py-8"><i class="fas fa-spinner fa-spin mr-2"></i>正在同步更新日志…</div>';
+            var wikiSources = [
+                '/api/wiki-changelog' + (fresh ? '?fresh=1' : ''),
+                'https://raw.gitmirror.com/wiki/Nexservermc/Nexserver/' + encodeURIComponent('更新日志') + '.md',
+                WIKI_URL
+              ];
+              var wikiIdx = 0;
+              function fetchWiki() {
+                if (wikiIdx >= wikiSources.length) {
+                  throw new Error('所有数据源均不可用');
+                }
+                return fetch(wikiSources[wikiIdx], { cache: 'no-store' }).then(function (r) {
+                  if (!r.ok) { wikiIdx++; return fetchWiki(); }
+                  return r;
+                }).catch(function () {
+                  wikiIdx++; return fetchWiki();
+                });
+              }
+              fetchWiki()
+                .then(function (r) {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.text();
+                })
+                .then(function (md) {
+                    var body = md.replace(/^#\s+[^\n]*\n+/, '');
+                    var html = window.marked ? marked.parse(body) : '<pre class="whitespace-pre-wrap text-sm">' + escapeHtml(body) + '</pre>';
+                    box.innerHTML = '<div class="cl-list">' + html + '</div>';
+                    if (timeEl) timeEl.textContent = new Date().toLocaleString('zh-CN', { hour12: false });
+
+                    var groups = Array.prototype.slice.call(box.querySelectorAll('.cl-list > ul > li'));
+                    if (!groups.length) {
+                        box.innerHTML = '<p class="text-center text-gray-400 py-8">暂无更新日志内容</p>';
+                        return;
+                    }
+                    var total = groups.length;
+                    var listEl = box.querySelector('.cl-list');
+
+                    // ===== 翻页（每页 15 条）=====
+                    var PER = 15;
+                    var page = 0;
+                    var pageCount = Math.max(1, Math.ceil(total / PER));
+                    var pagination = null;
+
+                    function renderPage() {
+                        var start = page * PER;
+                        var shown = groups.slice(start, start + PER);
+                        listEl.innerHTML = '';
+                        shown.forEach(function (el) {
+                            el.classList.add('spotlight-card');
+                            listEl.appendChild(el);
+                        });
+                        var items = listEl.children;
+                        Array.prototype.forEach.call(items, function (el, i) {
+                            el.style.opacity = '0';
+                            el.style.transform = 'translateY(22px)';
+                            setTimeout(function () {
+                                el.style.transition = 'opacity .6s ease, transform .6s cubic-bezier(.34,1.56,.64,1)';
+                                el.style.opacity = '1';
+                                el.style.transform = 'translateY(0)';
+                            }, 40 + i * 50);
+                        });
+                        updatePagination();
+                    }
+
+                    function updatePagination() {
+                        var prevBtn = document.getElementById('cl-prev');
+                        var nextBtn = document.getElementById('cl-next');
+                        var numsEl = document.getElementById('cl-page-nums');
+                        var infoEl = document.getElementById('cl-page-info');
+                        if (prevBtn) prevBtn.disabled = page <= 0;
+                        if (nextBtn) nextBtn.disabled = page >= pageCount - 1;
+                        if (numsEl) {
+                            numsEl.innerHTML = '';
+                            var startP = Math.max(0, Math.min(page - 3, pageCount - 7));
+                            var endP = Math.min(pageCount, startP + 7);
+                            if (startP > 0) {
+                                var d1 = document.createElement('button');
+                                d1.className = 'cl-page-num'; d1.textContent = '1';
+                                d1.addEventListener('click', function () { page = 0; renderPage(); });
+                                numsEl.appendChild(d1);
+                                if (startP > 1) { var ell = document.createElement('span'); ell.className = 'cl-page-ellipsis'; ell.textContent = '…'; numsEl.appendChild(ell); }
+                            }
+                            for (var p = startP; p < endP; p++) {
+                                (function (pi) {
+                                    var b = document.createElement('button');
+                                    b.className = 'cl-page-num' + (pi === page ? ' active' : '');
+                                    b.textContent = (pi + 1);
+                                    b.addEventListener('click', function () { page = pi; renderPage(); });
+                                    numsEl.appendChild(b);
+                                })(p);
+                            }
+                            if (endP < pageCount) {
+                                if (endP < pageCount - 1) { var ell2 = document.createElement('span'); ell2.className = 'cl-page-ellipsis'; ell2.textContent = '…'; numsEl.appendChild(ell2); }
+                                var d2 = document.createElement('button');
+                                d2.className = 'cl-page-num'; d2.textContent = pageCount;
+                                d2.addEventListener('click', function () { page = pageCount - 1; renderPage(); });
+                                numsEl.appendChild(d2);
+                            }
+                        }
+                        if (infoEl) infoEl.textContent = '第 ' + (page + 1) + ' / ' + pageCount + ' 页 · 共 ' + total + ' 条更新记录';
+                    }
+
+                    pagination = document.getElementById('cl-pagination');
+                    if (!pagination) {
+                        pagination = document.createElement('div');
+                        pagination.className = 'cl-pagination';
+                        pagination.id = 'cl-pagination';
+                        pagination.innerHTML = '<button class="cl-page-btn" id="cl-prev"><i class="fas fa-chevron-left"></i>上一页</button><div class="cl-page-nums" id="cl-page-nums"></div><button class="cl-page-btn" id="cl-next">下一页<i class="fas fa-chevron-right"></i></button><span class="cl-page-info" id="cl-page-info"></span>';
+                        box.appendChild(pagination);
+                        var prevBtn = document.getElementById('cl-prev');
+                        var nextBtn = document.getElementById('cl-next');
+                        if (prevBtn) prevBtn.addEventListener('click', function () { if (page > 0) { page--; renderPage(); } });
+                        if (nextBtn) nextBtn.addEventListener('click', function () { if (page < pageCount - 1) { page++; renderPage(); } });
+                    }
+                    renderPage();
+
+
+                    var items = listEl.children;
+                    Array.prototype.forEach.call(items, function (el, i) {
+                        el.style.opacity = '0';
+                        el.style.transform = 'translateY(22px)';
+                        setTimeout(function () {
+                            el.style.transition = 'opacity .6s ease, transform .6s cubic-bezier(.34,1.56,.64,1)';
+                            el.style.opacity = '1';
+                            el.style.transform = 'translateY(0)';
+                        }, 60 + i * 75);
+                    });
+                })
+                .catch(function (e) {
+                    box.innerHTML =
+                        '<div class="text-center py-10">' +
+                        '<p class="text-red-500 mb-3"><i class="fas fa-exclamation-triangle mr-2"></i>更新日志加载失败（' + e.message + '）</p>' +
+                        '<p class="text-gray-400 text-sm">请访问 <a class="text-blue-500 underline" href="https://github.com/Nexservermc/Nexserver/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97" target="_blank">官方 Wiki 更新日志</a></p>' +
+                        '</div>';
+                });
+        };
+
+        function escapeHtml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
+        else render();
+    };
+    window.loadChangelog(false);
+    </script>
+</body>
+</html>

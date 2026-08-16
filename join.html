@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>(function(){try{var t=localStorage.getItem('nex-theme');if(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){var d=document.documentElement;d.classList.add('theme-dark');d.style.backgroundColor='#0b1220';d.style.colorScheme='dark';}}catch(e){}})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入我们 - Nexserver</title>
+    <meta name="description" content="加入 Nexserver：复制服务器地址 nexserver.top，注册登录，开启冒险。">
+    <link rel="stylesheet" href="css/style.css?v=20260966">
+    <script src="js/setting.js"></script>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+ <script src="js/tailwind.js?v=20260937"></script>
+ <link rel="stylesheet" href="css/fontawesome.min.css?v=20260913">
+</head>
+<body class="min-h-screen" data-page="join">
+    <!-- ========== 导航栏 ========== -->
+    <!--#include virtual="/partials/nav.html" -->
+<main class="relative">
+        <canvas class="squares-bg" id="squares-canvas" aria-hidden="true"></canvas>
+
+        <!-- ========== 页面头部（复刻 CSFront_Refreshed 主页 hero） ========== -->
+        <section class="page-hero join-hero">
+            <div class="join-banner-inner">
+                <div class="jb-flex">
+                    <div class="jb-content">
+                        <h3 class="jb-h3">欢迎加入</h3>
+                        <div>
+                            <span class="jb-title decrypted-text" data-text="NEXSERVER" data-original="1">NEXSERVER</span>
+                        </div>
+                        <span class="jb-title decrypted-text" data-text="NEX服务器">NEX服务器</span>
+                        <div class="jb-line">
+                            <span class="jb-we">我们拥有</span>
+                            <div class="jb-capsule-wrap">
+                                <div class="jb-capsule">
+                                    <span id="rotating-word">原版生存</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 文字式信息区（无卡片） ========== -->
+        <section class="join-text-section">
+            <div class="container mx-auto px-6">
+
+                <div class="jt-block">
+                    <div class="jt-head">服务器线路</div>
+                    <div class="sl-list" id="server-line-list">
+                    <div class="sl-item" data-ip="nexserver.top">
+                        <span class="sl-status"><span class="sl-dot"></span><span class="sl-text">检测中</span></span>
+                        <span class="sl-label"><i class="fas fa-star"></i>主线路 · 湖北武汉</span>
+                        <span class="sl-addr">nexserver.top</span>
+                        <button class="sl-copy btn-copy-ip" data-ip="nexserver.top" data-port="25565"><i class="fas fa-copy"></i>复制地址</button>
+                    </div>
+                    <div class="sl-item" data-ip="nexmc.nexserver.top">
+                        <span class="sl-status"><span class="sl-dot"></span><span class="sl-text">检测中</span></span>
+                        <span class="sl-label"><i class="fas fa-link"></i>备线① · 中国上海</span>
+                        <span class="sl-addr">nexmc.nexserver.top</span>
+                        <button class="sl-copy btn-copy-ip" data-ip="nexmc.nexserver.top" data-port="25565"><i class="fas fa-copy"></i>复制地址</button>
+                    </div>
+                    <div class="sl-item" data-ip="mc.nexserver.top">
+                        <span class="sl-status"><span class="sl-dot"></span><span class="sl-text">检测中</span></span>
+                        <span class="sl-label"><i class="fas fa-link"></i>备线② · 中国北京</span>
+                        <span class="sl-addr">mc.nexserver.top</span>
+                        <button class="sl-copy btn-copy-ip" data-ip="mc.nexserver.top" data-port="25565"><i class="fas fa-copy"></i>复制地址</button>
+                    </div>
+                </div>
+                </div>
+
+                <div class="jt-block">
+                    <div class="jt-head">服务器信息</div>
+                    <div class="sl-item"><span class="sl-label">架构</span><span class="sl-addr">Velocity 群组网络</span></div>
+                    <div class="sl-item"><span class="sl-label">主线路</span><span class="sl-addr">nexserver.top</span></div>
+                    <div class="sl-item"><span class="sl-label">运行状态</span><span class="sl-addr">全天候运行</span></div>
+                    <div class="sl-item"><span class="sl-label">网络版本</span><span class="sl-addr" id="server-version">--</span></div>
+                </div>
+
+                <div class="jt-block">
+                    <div class="jt-head">加入方式</div>
+                    <div class="sl-item"><span class="sl-addr">① 使用 Minecraft Java 版客户端（支持主流版本）</span></div>
+                    <div class="sl-item"><span class="sl-addr">② 多人游戏 → 添加服务器 → 输入上方地址</span></div>
+                    <div class="sl-item"><span class="sl-addr">③ 进入后按提示 <strong>注册 / 登录</strong> 账号</span></div>
+                    <div class="sl-item"><span class="sl-addr">④ 通过验证后即可传送到主世界，开始冒险！</span></div>
+                    <div class="jt-note">※ 为保障服务器安全，完整地址信息以官方 QQ 群 / Telegram 公告为准</div>
+                </div>
+
+                <div class="jt-block">
+                    <div class="jt-head">联系我们</div>
+                    <div class="sl-item"><span class="sl-label">QQ群</span><a href="https://qm.qq.com/q/x8kxgKFgQg" target="_blank" class="sl-addr sl-link">277897347 ↗</a></div>
+                    <div class="sl-item"><span class="sl-label">Telegram</span><a href="https://t.me/nexservermc" target="_blank" class="sl-addr sl-link">@nexservermc ↗</a></div>
+                    <div class="sl-item"><span class="sl-label">哔哩哔哩</span><a href="https://space.bilibili.com/3546754060388730" target="_blank" class="sl-addr sl-link">Nexserver官方账号 ↗</a></div>
+                </div>
+
+            </div>
+        </section>
+</main>
+    <!-- ========== 页脚 ========== -->
+    <!--#include virtual="/partials/footer.html" -->
+    <button id="back-top" class="back-top" title="返回顶部"><i class="fas fa-chevron-up"></i></button>
+    <script src="js/script.js?v=20260937"></script>
+
+
+</body>
+</html>

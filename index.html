@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>(function(){try{var t=localStorage.getItem('nex-theme');if(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){var d=document.documentElement;d.classList.add('theme-dark');d.style.backgroundColor='#0b1220';d.style.colorScheme='dark';}}catch(e){}})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="server-title">Nexserver - 官方网站</title>
+    <meta name="description" content="Nexserver（NEX服务器）—— Minecraft 群组服务器。原版生存 · 无限地城 · 螺旋跑酷 · 随机空岛 · 起床战争，超多玩法等你来探索！">
+    <link rel="stylesheet" href="css/style.css?v=20260964">
+    <script src="js/setting.js"></script>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+ <script src="js/tailwind.js?v=20260937"></script>
+ <link rel="stylesheet" href="css/fontawesome.min.css?v=20260913">
+</head>
+<body class="min-h-screen" data-page="index">
+        <div class="ag ag-2"></div>
+        <div class="ag ag-3"></div>
+    </div>
+
+    <!-- ========== 导航栏 ========== -->
+    <!--#include virtual="/partials/nav.html" -->
+
+    <main>
+        <!-- ========== Hero：左状态面板 + 右封面 ========== -->
+        <section class="hero-section">
+            <div class="container mx-auto px-6">
+                <div class="grid hero-grid grid-cols-1 lg:grid-cols-2 gap-10 items-end">
+
+                    <!-- 左：主机实时监测面板 -->
+                    <div>
+                        <h1 class="hero-title mb-3"><span data-i18n="hero.title">
+                            欢迎来到 <span class="gradient-text">Nexserver</span>
+                        </span></h1>
+                        <p class="hero-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <span class="hero-quote-wrap" id="hero-quote-wrap"></span>
+                        </p>
+                        <p class="text-gray-500 mb-7 leading-relaxed">
+                            <span data-i18n="hero.subtitle">N：新的　E：启蒙　X：联合</span>
+                        </p>
+
+                        <!-- 主机监测面板 -->
+                        <div class="status-panel">
+                            <div class="sp-header">
+                                <h3><i class="fas fa-server"></i> <span data-i18n="panel.title">主机实时监测</span></h3>
+                                <span class="sp-live"><span class="sp-dot"></span>LIVE</span>
+                            </div>
+
+                            <div class="sp-grid">
+                                <div class="sp-card">
+                                    <span class="sp-label"><i class="fas fa-microchip"></i> <span data-i18n="panel.cpu">CPU 占用</span></span>
+                                    <span class="sp-value" id="perf-cpu">--%</span>
+                                    <div class="sp-bar"><div class="sp-bar-inner" id="bar-cpu"></div></div>
+                                </div>
+                                <div class="sp-card">
+                                    <span class="sp-label"><i class="fas fa-memory"></i> <span data-i18n="panel.mem">内存占用</span></span>
+                                    <span class="sp-value" id="perf-mem">--</span>
+                                    <div class="sp-bar"><div class="sp-bar-inner" id="bar-mem"></div></div>
+                                </div>
+                                <div class="sp-card">
+                                    <span class="sp-label"><i class="fas fa-server"></i> <span data-i18n="panel.instances">运行实例</span></span>
+                                    <span class="sp-value" id="perf-instances">--</span>
+                                    <div class="sp-bar"><div class="sp-bar-inner" id="bar-instances"></div></div>
+                                </div>
+                                <div class="sp-card">
+                                    <span class="sp-label"><i class="fas fa-clock"></i> <span data-i18n="panel.uptime">系统运行</span></span>
+                                    <span class="sp-value" id="perf-uptime">--</span>
+                                    <div class="sp-bar"><div class="sp-bar-inner" id="bar-uptime"></div></div>
+                                </div>
+                            </div>
+
+                            <div class="sp-players">
+                                <div class="sp-players-head">
+                                    <span class="sp-label"><i class="fas fa-users"></i><span data-i18n="panel.players">在线玩家</span></span>
+                                    <strong id="player-count-chip">-- / --</strong>
+                                </div>
+                                <div id="player-list">正在获取…</div>
+                            </div>
+</div>
+                    </div>
+
+                    <!-- 右：封面图（旋转光边） -->
+                    <div>
+                        <div class="hero-cover">
+                            <div class="slide-viewport" id="cover-slider-viewport">
+                                <div class="slide-track">
+                                    <img src="picture/cover-1.png" alt="Nexserver 服务器主题封面" class="slide-img">
+                                    <img src="picture/cover-2.png" alt="山" class="slide-img">
+                                    <img src="picture/cover-3.jpg" alt="聪明人" class="slide-img">
+                                    <img src="picture/cover-4.jpg" alt="僵尸o0" class="slide-img">
+                                </div>
+</div>
+                        </div>
+                        <!-- 封面下方：时间 + 状态徽章 并排 -->
+                        <div class="cover-meta">
+                            <div class="cover-time">
+                                <span class="cover-time-icon" id="cover-time-icon"></span>
+                                <span class="time-big" id="cover-time-text">--:--</span>
+                            </div>
+                            <div class="cover-badge">
+                                <span class="pulse-dot" id="hero-status-dot"></span>
+                                <span id="hero-server-status" class="font-bold">在线</span>
+                                · NEX SERVER · QQ群 277897347
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 栏目格子：点击进入 ========== -->
+        <section class="py-10">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-10">
+                    <span class="section-eyebrow">Explore</span>
+                    <h2 class="section-title">探索 NEX</h2>
+                    <p class="section-subtitle">点击任意栏目进入对应页面，了解玩法、规则、团队与更多内容</p>
+                </div>
+
+                <div class="section-grid">
+                    <a href="modes.html" class="section-tile animate-target spotlight-card">
+                        <div class="tile-icon"><i class="fas fa-gamepad"></i></div>
+                        <div class="tile-title"><span data-i18n="tile.modes">游戏玩法</span></div>
+                        <div class="tile-desc">原版生存、无限地城、螺旋跑酷、随机空岛、起床战争…… 八大玩法任你挑选</div>
+                        <span class="tile-enter">进入栏目 <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <a href="features.html" class="section-tile animate-target spotlight-card">
+                        <div class="tile-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                        <div class="tile-title"><span data-i18n="tile.features">生存功能</span></div>
+                        <div class="tile-desc">技能系统、生存币经济、全球拍卖、家园传送…… 数十款插件打造完整生存生态</div>
+                        <span class="tile-enter">进入栏目 <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <a href="rules.html" class="section-tile animate-target spotlight-card">
+                        <div class="tile-icon"><i class="fas fa-scale-balanced"></i></div>
+                        <div class="tile-title"><span data-i18n="tile.rules">服务器规定</span></div>
+                        <div class="tile-desc">NEX 纯公益服务器规则，共 17 条，维护良好的游戏环境与社区氛围</div>
+                        <span class="tile-enter">进入栏目 <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <a href="team.html" class="section-tile animate-target spotlight-card">
+                        <div class="tile-icon"><i class="fas fa-users"></i></div>
+                        <div class="tile-title"><span data-i18n="tile.team">NEX 团队</span></div>
+                        <div class="tile-desc">认识水煮船、边牧、宇月、小田，了解服务器背后的开发与管理团队</div>
+                        <span class="tile-enter">进入栏目 <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <a href="faq.html" class="section-tile animate-target spotlight-card">
+                        <div class="tile-icon"><i class="fas fa-circle-question"></i></div>
+                        <div class="tile-title"><span data-i18n="tile.faq">常见问题</span></div>
+                        <div class="tile-desc">如何加入、无法连接、身份验证、破坏赔偿…… 新玩家常见问题一站式解答</div>
+                        <span class="tile-enter">进入栏目 <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <a href="donate.html" class="section-tile animate-target spotlight-card">
+                        <div class="tile-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                        <div class="tile-title"><span data-i18n="tile.donate">赞助支持</span></div>
+                        <div class="tile-desc">自定义称号、飞行礼包、动画支持、定制内容。服务器没有强制要求，请量力而行</div>
+                        <span class="tile-enter">进入栏目 <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <a href="join.html" class="section-tile animate-target spotlight-card">
+                        <div class="tile-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="tile-title"><span data-i18n="tile.join">加入我们</span></div>
+                        <div class="tile-desc">复制服务器地址，注册登录，开启你的 Nexserver 冒险之旅</div>
+                        <span class="tile-enter">进入栏目 <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <a href="https://github.com/Nexservermc/nexserver/wiki" target="_blank" rel="noopener" class="section-tile animate-target spotlight-card">
+                        <div class="tile-icon"><i class="fab fa-github"></i></div>
+                        <div class="tile-title"><span data-i18n="tile.wiki">官方 Wiki</span></div>
+                        <div class="tile-desc">更新日志、功能帮助、用户协议、赞助我们…… 全部官方文档</div>
+                        <span class="tile-enter">前往 Wiki <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 数据条 ========== -->
+        <section class="py-8">
+            <div class="container mx-auto px-6">
+                <div class="glass-card stats-bar !p-4 spotlight-card">
+                    <div class="stat-item">
+                        <div class="stat-number">2026.5.31</div>
+                        <div class="stat-label">服务器成立</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8+</div>
+                        <div class="stat-label"><span data-i18n="tile.modes">游戏玩法</span></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1 条</div>
+                        <div class="stat-label">主线路接入</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24h</div>
+                        <div class="stat-label"><span data-i18n="stats.uptime">全天候运行</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 图片展示（GridMotion 鼠标互动） ========== -->
+        <section class="gm-section animate-target">
+            <div class="gm-wrap" id="gm-wrap" style="position:relative;height:480px;overflow:hidden">
+                <div class="gm-grid" id="gm-grid"></div>
+            </div>
+        </section>
+
+        <section id="about" class="py-14">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-10">
+      <span class="section-eyebrow">About Us</span>
+      <h2 class="section-title">关于 NEX 服务器</h2>
+      <p class="section-subtitle">自成立以来，致力于打造最纯粹的游戏社区！</p>
+    </div>
+    <div class="about-progress">
+  <div class="ap-item">
+    <div class="ap-content">
+      <i class="fas fa-heart"></i>
+      <div><p class="ap-title">纯公益定位</p><p class="ap-desc">服务器无强制消费，靠社区自愿支持</p></div>
+    </div>
+  </div>
+  <div class="ap-item">
+    <div class="ap-content">
+      <i class="fas fa-shapes"></i>
+      <div><p class="ap-title">多元化玩法</p><p class="ap-desc">从原版生存到起床战争等多种模式</p></div>
+    </div>
+  </div>
+  <div class="ap-item">
+    <div class="ap-content">
+      <i class="fas fa-users"></i>
+      <div><p class="ap-title">NEX 管理组</p><p class="ap-desc">由莫天帝国旗下 NEX 管理组运营</p></div>
+    </div>
+  </div>
+  <div class="ap-item">
+    <div class="ap-content">
+      <i class="fas fa-comments"></i>
+      <div><p class="ap-title">社区文化</p><p class="ap-desc">玩家群体和谐友善，始终欢迎新玩家</p></div>
+    </div>
+  </div>
+  <p class="ap-note">NEX 服务器是一个由莫天帝国旗下 NEX 管理组运营的 Minecraft 群组服务器，自成立以来，致力于打造最纯粹的游戏社区！这里没有复杂的氪金系统，只有最纯粹的生存体验，玩家群体和谐友善，始终欢迎新玩家的加入，共同探索这个充满无限可能的 Minecraft 世界。</p>
+</div>
+  </div>
+</section>
+
+        <!-- ========== 页脚 ========== -->
+    <!--#include virtual="/partials/footer.html" -->
+
+    <!-- 返回顶部 -->
+    <button id="back-top" class="back-top" title="返回顶部"><i class="fas fa-chevron-up"></i></button>
+
+    <!-- 四季主题边框 -->
+    <div class="season-frame" aria-hidden="true">
+        <span class="sf-top"></span>
+        <span class="sf-bottom"></span>
+        <span class="sf-left"></span>
+        <span class="sf-right"></span>
+        <span class="sf-corners sf-c1"></span>
+        <span class="sf-corners sf-c2"></span>
+        <span class="sf-corners sf-c3"></span>
+        <span class="sf-corners sf-c4"></span>
+    </div>
+
+    <!-- 四角季节贴图 -->
+    <div class="season-decor" id="season-decor" aria-hidden="true"></div>
+
+    <script src="js/script.js?v=20260939"></script>
+</body>
+</html>

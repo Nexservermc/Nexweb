@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>(function(){try{var t=localStorage.getItem('nex-theme');if(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){var d=document.documentElement;d.classList.add('theme-dark');d.style.backgroundColor='#0b1220';d.style.colorScheme='dark';}}catch(e){}})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生存功能 - Nexserver</title>
+    <meta name="description" content="Nexserver 生存服功能：技能系统、经济、拍卖、家园、工会、安全防护与常用指令速查。">
+    <link rel="stylesheet" href="css/style.css?v=20260963">
+    <script src="js/setting.js"></script>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+ <script src="js/tailwind.js?v=20260937"></script>
+ <link rel="stylesheet" href="css/fontawesome.min.css?v=20260913">
+</head>
+<body class="min-h-screen" data-page="features">
+    <!-- ========== 导航栏 ========== -->
+    <!--#include virtual="/partials/nav.html" -->
+<main>
+
+        <!-- ========== 页面头部 ========== -->
+        <section class="page-hero">
+            <div class="container mx-auto px-6 text-center">
+                <span class="section-eyebrow">Features</span>
+                <h1 class="section-title">生存服功能</h1>
+                <p class="section-subtitle">生存服搭载数十款精选插件，从成长、经济到社交、安全，构建完整的生存生态</p>
+            </div>
+        </section>
+    <section class="py-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="glass-card feature-card animate-target spotlight-card">
+                    <div class="feature-icon-bg"><i class="fas fa-magic"></i></div>
+                    <h3>技能系统</h3>
+                    <p>打开菜单（/cd）点击「技能系统」即可查看全部技能。日常活动积累经验，解锁奇妙功能。</p>
+                </div>
+                <div class="glass-card feature-card animate-target spotlight-card">
+                    <div class="feature-icon-bg"><i class="fas fa-coins"></i></div>
+                    <h3>生存币经济</h3>
+                    <p>/money 查看余额、/pay 转账、/balancetop 财富榜。系统商店出售物品即可获得游戏币。</p>
+                </div>
+                <div class="glass-card feature-card animate-target spotlight-card">
+                    <div class="feature-icon-bg"><i class="fas fa-gavel"></i></div>
+                    <h3>全球拍卖</h3>
+                    <p>/ah 打开拍卖行，一口价或竞价上架你的珍藏；/ah listed 管理在售商品。</p>
+                </div>
+                <div class="glass-card feature-card animate-target spotlight-card">
+                    <div class="feature-icon-bg"><i class="fas fa-house"></i></div>
+                    <h3>家园与传送</h3>
+                    <p>/sethome 保存家园、/home 一键传送；/tpa 请求传送、/back 回到死亡点。</p>
+                </div>
+                <div class="glass-card feature-card animate-target spotlight-card">
+                    <div class="feature-icon-bg"><i class="fas fa-users"></i></div>
+                    <h3>工会与社交</h3>
+                    <p>工会系统与伙伴共建势力；聊天 @ 在线玩家自动提醒；全服喊话（! 前缀）。</p>
+                </div>
+                <div class="glass-card feature-card animate-target spotlight-card">
+                    <div class="feature-icon-bg"><i class="fas fa-user-shield"></i></div>
+                    <h3>安全与公平</h3>
+                    <p>专业反作弊系统全面守护，矿物透视沉默检测、反矿透、方块记录（/co i）。</p>
+                </div>
+            </div>
+
+            <div class="glass-card !p-0 mt-12 max-w-4xl mx-auto overflow-hidden">
+                <div class="px-7 py-5 border-b border-gray-100 flex items-center justify-between flex-wrap gap-3">
+                    <h3 class="text-lg font-extrabold"><i class="fas fa-terminal text-blue-500 mr-2"></i>常用指令速查</h3>
+                    <a href="https://github.com/Nexservermc/nexserver/wiki/%E5%8A%9F%E8%83%BD%E5%B8%AE%E5%8A%A9" target="_blank" rel="noopener" class="text-sm text-blue-600 hover:text-blue-800">完整功能帮助 →</a>
+                </div>
+                <div class="px-7 py-5 overflow-x-auto">
+                    <table class="cmd-table">
+                        <thead><tr><th>分类</th><th>指令</th><th>说明</th></tr></thead>
+                        <tbody><tr><td class="font-semibold text-blue-600">菜单</td><td><code>/cd</code></td><td>打开服务器主菜单，整合大部分插件的 GUI 操作</td></tr>
+<tr><td class="font-semibold text-blue-600">经济</td><td><code>/money</code> <code>/pay &lt;玩家&gt; &lt;金额&gt;</code> <code>/balancetop</code></td><td>查看余额 / 转账 / 财富排行榜</td></tr>
+<tr><td class="font-semibold text-blue-600">家园</td><td><code>/sethome &lt;名称&gt;</code> <code>/home &lt;名称&gt;</code> <code>/homes</code></td><td>设置 / 传送 / 查看家园</td></tr>
+<tr><td class="font-semibold text-blue-600">传送</td><td><code>/tpa &lt;玩家&gt;</code> <code>/tpahere &lt;玩家&gt;</code> <code>/back</code></td><td>请求传送到对方 / 邀请对方 / 回到死亡点</td></tr>
+<tr><td class="font-semibold text-blue-600">拍卖</td><td><code>/ah</code> <code>/ah sell &lt;价格&gt;</code> <code>/ah bid &lt;起拍价&gt;</code></td><td>打开拍卖行 / 一口价上架 / 竞价上架</td></tr>
+<tr><td class="font-semibold text-blue-600">称号</td><td><code>/plt shop</code> <code>/plt open</code></td><td>称号商城 / 个人称号仓库</td></tr>
+<tr><td class="font-semibold text-blue-600">查询</td><td><code>/co i</code></td><td>查询方块 / 箱子操作记录（谁动了我的家）</td></tr>
+<tr><td class="font-semibold text-blue-600">计分板</td><td><code>/asb toggle</code></td><td>开启 / 关闭计分板</td></tr>
+<tr><td class="font-semibold text-blue-600">起床战争</td><td><code>/bw tp &lt;玩家&gt;</code></td><td>观战指定玩家的战斗</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+    <!-- ========== 页脚 ========== -->
+    <!--#include virtual="/partials/footer.html" -->
+    <button id="back-top" class="back-top" title="返回顶部"><i class="fas fa-chevron-up"></i></button>
+    <script src="js/script.js?v=20260937"></script>
+</body>
+</html>
