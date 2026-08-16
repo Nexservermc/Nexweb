@@ -1,0 +1,62 @@
+<nav class="navbar py-3.5 px-6 sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between">
+        <a href="index.html" data-page="index.html" class="flex items-center space-x-2.5 no-underline">
+            <img src="favicon.png" alt="Nexserver" class="w-8 h-8 rounded-md shadow-sm">
+            <span class="nav-logo-text">Nexserver</span>
+        </a>
+
+        <div class="hidden lg:flex items-center space-x-5 flex-1 justify-center px-4">
+            <a href="index.html" data-page="index">首页</a>
+            <a href="modes.html" data-page="modes">玩法</a>
+            <a href="features.html" data-page="features">功能</a>
+            <a href="rules.html" data-page="rules">规定</a>
+            <a href="team.html" data-page="team">团队</a>
+            <a href="faq.html" data-page="faq">FAQ</a>
+            <a href="donate.html" data-page="donate">赞助</a>
+            <a href="join.html" data-page="join">加入</a>
+            <a href="changelog.html" data-page="changelog">更新日志</a>
+            <a href="https://github.com/Nexservermc/nexserver/wiki" target="_blank" rel="noopener">Wiki <i class="fas fa-external-link-alt ml-1 text-xs"></i></a>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button class="lg:hidden mobile-menu-button" aria-label="菜单" aria-expanded="false">
+                <span class="hm-line hm-1"></span>
+                <span class="hm-line hm-2"></span>
+                <span class="hm-line hm-3"></span>
+            </button>
+
+            <button id="theme-toggle" class="theme-switch hidden lg:inline-flex" role="switch" aria-checked="false" title="切换深色/浅色主题" aria-label="切换主题">
+                <span class="ts-track"><span class="ts-thumb"><i class="fas fa-moon"></i></span></span>
+            </button>
+
+            <a href="join.html" class="hidden lg:inline-flex btn-primary !py-2.5 !px-5">
+                <i class="fas fa-rocket"></i>立即加入</a>
+
+            <a href="https://github.com/Nexservermc" target="_blank" rel="noopener" class="hidden lg:inline-flex nav-github" title="GitHub" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="mobile-menu lg:hidden" id="mobile-menu">
+    <div class="mm-wrap">
+        <a href="index.html">首页</a>
+        <a href="modes.html">玩法</a>
+        <a href="features.html">功能</a>
+        <a href="rules.html">规定</a>
+        <a href="team.html">团队</a>
+        <a href="faq.html">FAQ</a>
+        <a href="donate.html">赞助</a>
+        <a href="join.html">加入</a>
+        <a href="changelog.html">更新日志</a>
+        <a href="https://github.com/Nexservermc/nexserver/wiki" target="_blank" rel="noopener">Wiki <i class="fas fa-external-link-alt ml-1 text-xs"></i></a>
+        <div class="mm-drop-theme">
+            <span><i class="fas fa-moon mr-1.5"></i><span class="ts-mobile-label">深色模式</span></span>
+            <button id="theme-toggle-mobile" class="theme-switch" role="switch" aria-checked="false" title="切换深色/浅色主题" aria-label="切换主题">
+                <span class="ts-track"><span class="ts-thumb"><i class="fas fa-moon"></i></span></span>
+            </button>
+        </div>
+        <a href="https://github.com/Nexservermc" target="_blank" rel="noopener" class="mm-drop-gh"><i class="fab fa-github mr-1.5"></i>GitHub</a>
+    </div>
+</div>
