@@ -27,7 +27,6 @@
 | Technology | Description |
 |------------|-------------|
 | HTML / CSS / JavaScript | Frontend foundation |
-| Static Site | No backend required, easy to deploy |
 | Responsive Layout | Adapts to various screen sizes |
 
 ---
